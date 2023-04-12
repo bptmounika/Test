@@ -1,30 +1,11 @@
-name: mkdir example
-on:
-  push:
-    branches: master
-  workflow_dispatch: null
+name: GitHub Actions Demo
+on: [push]
 jobs:
-  build:
+  To-Zip:
     runs-on: ubuntu-latest
     steps:
-      - name: Create dir
-        run: |
-          mkdir mydirname
-          mkdir newdir
-          mv newdir mydirname
-  build2:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version:
-          - 12.x
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run build
-      - name: Zip Build
-        run: zip -r build.zip 
+      - name: Checkout 
+        uses: actions/checkout@v3
+      
+      - name: Create ankiaddon
+        run: zip -r -q folder.zip folder

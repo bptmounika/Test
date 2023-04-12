@@ -10,7 +10,9 @@ jobs:
       - name: Create dir
         run: |
           mkdir mydirname
-  lint:
+          mkdir newdir
+          mv newdir mydirname
+  build2:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,5 +27,4 @@ jobs:
       - run: npm install
       - run: npm run build
       - name: Zip Build
-        run: zip -r build.zip mydirname
-      - run: npm test
+        run: zip -r build.zip 

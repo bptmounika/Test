@@ -15,5 +15,6 @@ jobs:
       - name: Create dir
         run: |
           mkdir mydirname
-          mv readme-*.md mydirname
+          mkdir newdir
+          mv newdir mydirname
         

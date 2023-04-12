@@ -1,20 +1,29 @@
 name: mkdir example
-
 on:
   push:
     branches: master
-  
-  workflow_dispatch:
-
-
+  workflow_dispatch: null
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Create dir
         run: |
           mkdir mydirname
-          mkdir newdir
-          mv newdir mydirname
-        
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 12.x
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm run build
+      - name: Zip Build
+        run: zip -r build.zip ./distribute/
+      - run: npm test

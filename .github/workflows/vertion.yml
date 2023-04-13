@@ -1,0 +1,24 @@
+name: Release
+on:
+  workflow_dispatch: null
+  push:
+    branches:
+      - main
+jobs:
+  name: Release
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+    - name: Install npm@8
+      run: npm i --prefer-online --no-fund --no-audit -g npm@8
+    - name: npm Version
+      run: npm -v
+    - name: Install Dependencies
+      run: npm i --ignore-scripts --no-audit --no-fund
+    - name: Release Please
+      id: release
